@@ -1,0 +1,20 @@
+html, body, #root, .App {
+  height: 100%;
+}
+.App {
+}
+
+.Wrapper {
+  display: flex;
+  justify-content:  flex-start;
+  height: calc(100% - 38px);
+}
+
+.WindowTitleBar {
+  background: #ccccff;
+  height: 30px;
+  text-align: center;
+  font-size: 18px;
+  -webkit-app-region: drag;
+  padding-top: 8px;
+}
