@@ -1,12 +1,16 @@
 {
   "name": "main",
   "version": "1.0.0",
-  "main": "./Main.js",
+  "main": "./src/Main.js",
   "license": "MIT",
   "devDependencies": {
     "electron": "^4.1.4"
   },
   "scripts": {
-    "electron": "electron ."
+    "start": "electron .",
+    "build": "NODE_ENV=prod electron-builder"
+  },
+  "dependencies": {
+    "nedb-promises": "^3.0.3"
   }
 }
