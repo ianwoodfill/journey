@@ -1,5 +1,6 @@
 .Sidebar {
     min-width: 160px;
-    background: darkgoldenrod;
+    background: #3d3d3d;
+    border-right: 1px solid #212121;
     height: 100%;
 }

@@ -1,20 +1,24 @@
 html, body, #root, .App {
   height: 100%;
+  user-select: none;
 }
 .App {
+  background: #474747;
+  color: white;
 }
 
 .Wrapper {
   display: flex;
   justify-content:  flex-start;
-  height: calc(100% - 38px);
+  height: calc(100% - 39px);
 }
 
 .WindowTitleBar {
-  background: #ccccff;
+  background: #333333;
   height: 30px;
   text-align: center;
   font-size: 18px;
   -webkit-app-region: drag;
   padding-top: 8px;
+  border-bottom: 1px solid #212121;
 }

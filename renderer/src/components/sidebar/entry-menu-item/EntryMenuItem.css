@@ -1,0 +1,7 @@
+.EntryMenuItem {
+    padding: 6px 5px;
+}
+.EntryMenuItem[is_selected="true"] {
+    background: #2d2d2d;
+    font-weight: bold;
+}

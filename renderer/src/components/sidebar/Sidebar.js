@@ -3,13 +3,16 @@ import './Sidebar.css';
 import EntryMenuItem from './entry-menu-item/EntryMenuItem'
 
 class Sidebar extends Component {
+  constructor(props){
+    super(props)
+  }
+
   render() {
     return (
       <div className="Sidebar">
-        <EntryMenuItem date="Today" />
-        <EntryMenuItem date="April 5" />
-        <EntryMenuItem date="April 2" />
-        <EntryMenuItem date="April 1" />
+        {this.props.menuEntries.map((entry, index) =>
+          <EntryMenuItem isSelected={this.props.selected == index} date={entry.date} entry_index={index} selectEntry={this.props.selectEntry} />
+        )}
       </div>
     );
   }

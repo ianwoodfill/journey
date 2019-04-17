@@ -1,0 +1,6 @@
+.EntryItem {
+    padding: 10px;
+}
+.EntryItem:not(:first-child){
+    border-top: 1px solid #595959;
+}
