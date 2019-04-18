@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import './App.css';
 import Sidebar from './sidebar/Sidebar'
 import Journal from './journal/Journal'
+const { ipcRenderer } = window.electron
 
 class App extends Component {
   constructor(props){
-    super(props);
+    super(props)
 
     this.selectEntry = this.selectEntry.bind(this)
+    this.saveEntry = this.saveEntry.bind(this)
+    this.handleChange = this.handleChange.bind(this)
 
     this.state = {}
     this.state.selected = 0
@@ -18,13 +21,23 @@ class App extends Component {
       },
       {
         id: 2,
-        date: new Date('April 5, 2019 03:24:00'),
+        date: new Date('April 5, 2019'),
       },
       {
         id: 1,
-        date: new Date('December 17, 1995 03:24:00'),
+        date: new Date('December 17, 1995'),
       }
     ]
+
+    ipcRenderer.send('requestDayEntries', new Date())
+
+    ipcRenderer.on('receiveMenuEntries', function(event, arg){
+      this.setState({ menuEntries: arg })
+    })
+  
+    ipcRenderer.on('receiveDayEntries', function(event, arg){
+      this.setState({ entries: arg })
+    })
   }
 
   selectEntry(e) {
@@ -34,7 +47,25 @@ class App extends Component {
 
     this.setState({ selected: entryIndex })
 
-    console.log(this.state)
+    ipcRenderer.send('requestEntries', this.state.menuEntries[entryIndex].date)
+  }
+
+  saveEntry(entryIndex){
+    this.state.isSaving[entryIndex] = false
+    console.log("entry saved, index: " + entryIndex)
+  }
+
+  handleChange(entryIndex, value){
+    console.log("entry changed, index: " + entryIndex)
+    
+    this.props.entries[entryIndex].body = value
+
+    console.log(this.state.entries[entryIndex].body)
+
+    if(!this.state.isSaving[entryIndex]){
+      this.state.isSaving[entryIndex] = true
+      setTimeout(this.saveEntry, 3500, entryIndex, value)
+    }
   }
 
   render() {
@@ -44,8 +75,11 @@ class App extends Component {
           Journey
         </div>
         <div className="Wrapper">
-          <Sidebar menuEntries={ this.state.menuEntries } selectEntry={this.selectEntry} selected={this.state.selected}/>
-          <Journal entry_id={this.state.menuEntries[this.state.selected].id} />
+          <Sidebar  menuEntries={ this.state.menuEntries }
+                    selectEntry={this.selectEntry}
+                    selected={this.state.selected}/>
+          <Journal  entries={this.state.entries} 
+                    handleChange={this.handleChange}/>
         </div>
       </div>
     );

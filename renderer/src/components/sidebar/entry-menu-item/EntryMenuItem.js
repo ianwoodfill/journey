@@ -16,7 +16,9 @@ class EntryMenuItem extends Component {
 
   render() {
     return (
-      <div className="EntryMenuItem" entry_index={this.props.entry_index} is_selected={this.props.isSelected.toString()} onClick={this.props.selectEntry}>
+      <div  className="EntryMenuItem" 
+            entry_index={this.props.entry_index}
+            is_selected={this.props.isSelected.toString()} onClick={this.props.selectEntry}>
         {this.label}
       </div>
     );

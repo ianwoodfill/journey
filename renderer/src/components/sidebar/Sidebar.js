@@ -7,12 +7,20 @@ class Sidebar extends Component {
     super(props)
   }
 
+  printEntries(){
+    return (
+      this.props.menuEntries.map((entry, index) =>
+        <EntryMenuItem  isSelected={this.props.selected == index}
+                        date={entry.date}
+                        entry_index={index}
+                        selectEntry={this.props.selectEntry} />
+      ))
+  }
+
   render() {
     return (
       <div className="Sidebar">
-        {this.props.menuEntries.map((entry, index) =>
-          <EntryMenuItem isSelected={this.props.selected == index} date={entry.date} entry_index={index} selectEntry={this.props.selectEntry} />
-        )}
+        {this.printEntries()}
       </div>
     );
   }
